@@ -1,11 +1,20 @@
 from __future__ import annotations
 
 import logging
+import sys
+from pathlib import Path
 
-from .app import BotApp
-from .config import Settings
-from .storage import Storage
-from .telegram import Poller, TelegramClient
+if __package__ in {None, ""}:
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
+    from wasteware_bot.app import BotApp
+    from wasteware_bot.config import Settings
+    from wasteware_bot.storage import Storage
+    from wasteware_bot.telegram import Poller, TelegramClient
+else:
+    from .app import BotApp
+    from .config import Settings
+    from .storage import Storage
+    from .telegram import Poller, TelegramClient
 
 
 def main() -> None:
@@ -15,4 +24,3 @@ def main() -> None:
     telegram = TelegramClient(settings.token)
     telegram.set_commands()
     Poller(telegram, BotApp(settings, storage, telegram), settings.poll_timeout).run()
-

@@ -11,8 +11,20 @@
 ```bash
 cp .env.example .env
 # заполни BOT_TOKEN и ADMIN_IDS
-export $(cat .env | xargs)
 python -m wasteware_bot
+```
+
+На Windows можно запускать из корня проекта:
+
+```bat
+copy .env.example .env
+python -m wasteware_bot
+```
+
+Если запускаешь из папки `wasteware_bot`, сработает и так:
+
+```bat
+python main.py
 ```
 
 Что умеет бот:
