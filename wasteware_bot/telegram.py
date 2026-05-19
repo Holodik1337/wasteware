@@ -154,12 +154,14 @@ class Poller:
                 time.sleep(5)
                 continue
             for update in updates:
-                self.offset = int(update["update_id"]) + 1
+                next_offset = int(update["update_id"]) + 1
                 parsed = parse_message(update)
                 if parsed is None:
+                    self.offset = next_offset
                     continue
                 try:
                     self.handler(parsed)
                 except Exception:
                     log.exception("Unhandled update: %s", update)
-
+                    break
+                self.offset = next_offset

@@ -30,9 +30,12 @@ class Settings:
         token = os.getenv("BOT_TOKEN", "").strip()
         if not token:
             raise RuntimeError("BOT_TOKEN is required")
+        admin_ids = _split_ids(os.getenv("ADMIN_IDS", ""))
+        if not admin_ids:
+            raise RuntimeError("ADMIN_IDS must contain at least one Telegram user id")
         return cls(
             token=token,
-            admin_ids=_split_ids(os.getenv("ADMIN_IDS", "")),
+            admin_ids=admin_ids,
             database_path=Path(os.getenv("DATABASE_PATH", "./wasteware_bot.sqlite3")),
             public_site_url=os.getenv("PUBLIC_SITE_URL", "").strip(),
             portfolio_url=os.getenv("PORTFOLIO_URL", "https://t.me/+WnSO6JAMc5c4NDJh").strip(),
@@ -40,4 +43,3 @@ class Settings:
             contact_username=os.getenv("CONTACT_USERNAME", "wasteware").strip().lstrip("@"),
             poll_timeout=int(os.getenv("POLL_TIMEOUT", "25")),
         )
-
