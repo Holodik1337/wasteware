@@ -1,0 +1,14 @@
+[project]
+name = "wasteware-edit-bot"
+version = "1.0.0"
+description = "Telegram bot for Edit Studio orders, portfolio, pricing and admin workflow."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+wasteware-bot = "wasteware_bot.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
